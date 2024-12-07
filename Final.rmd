@@ -1,6 +1,6 @@
 ---
 title: "Covid91 vaccine study Final2024"
-author: "Put your name here!"
+author: "Filipe"
 output: 
   html_document:
     number_sections: true
@@ -27,14 +27,79 @@ A new  preventative vaccine (covid921) is under test in clinical trials. Given t
 ## Males
 
 
+```{r}
+barchartGC(~infected + sex,data=FinalData)
+barchartGC(~infected + sex,data=FinalData, type="percent")
+
+```
+
+
+```{r}
+tableSex <- xtabs(~infected + sex, data=FinalData)
+rowPerc(tableSex)
+colPerc(tableSex)
+```
+
+```{r}
+chisq.test(tableSex)
+chisqtestGC(tableSex)
+fisher.test(tableSex)
+```
+
+
+
 ## Females
 
 
-## LGBTQ
 
+## LGBTQ
+```{r}
+barchartGC(~infected + LGBTQ,data=FinalData)
+barchartGC(~infected + LGBTQ,data=FinalData, type="percent")
+
+```
+
+
+```{r}
+tableLGBTQ <- xtabs(~infected + LGBTQ, data=FinalData)
+rowPerc(tableLGBTQ)
+colPerc(tableLGBTQ)
+```
+
+```{r}
+chisq.test(tableLGBTQ)
+chisqtestGC(tableLGBTQ)
+fisher.test(tableLGBTQ)
+```
 
 
 ## Druggies
+
+
+
+
+```{r}
+tableDrugUser <- xtabs(~infected + DrugUser, data=FinalData)
+rowPerc(tableDrugUser)
+colPerc(tableDrugUser)
+```
+
+
+```{r}
+chisq.test(tableDrugUser)
+chisqtestGC(tableDrugUser)
+fisher.test(tableDrugUser)
+```
+
+
+
+
+
+```{r}
+barchartGC(~infected + DrugUser,data=FinalData)
+barchartGC(~infected + DrugUser,data=FinalData, type="percent")
+
+```
 
 
 # Overall Results and Conclusions
