@@ -24,82 +24,218 @@ mutate(across(where(is.character), as.factor))
 
 A new  preventative vaccine (covid921) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+
+$H_0$ The vaccine has no effect on males in preventing covid.   
+$H_A$ The vaccine does have an effect on males in preventing covid.  
+
+
 ## Males
 
-
 ```{r}
-barchartGC(~infected + sex,data=FinalData)
-barchartGC(~infected + sex,data=FinalData, type="percent")
-
-```
-
-
-```{r}
-tableSex <- xtabs(~infected + sex, data=FinalData)
-rowPerc(tableSex)
-colPerc(tableSex)
+Males<-FinalDat[ FinalDat$sex=='M',]
 ```
 
 ```{r}
-chisq.test(tableSex)
-chisqtestGC(tableSex)
-fisher.test(tableSex)
+barchartGC(~infected + treatment,data=Males)
+barchartGC(~infected + treatment,data=Males, type="percent")
 ```
+Most of the males that took the vaccine did not contract COVID19. Hence, the vaccine was effective that specific group.  
 
-
-
-## Females
-
-
-
-## LGBTQ
 ```{r}
-barchartGC(~infected + LGBTQ,data=FinalData)
-barchartGC(~infected + LGBTQ,data=FinalData, type="percent")
-
+table1 <- xtabs(~infected + treatment, data=Males)
+rowPerc(table1)
+colPerc(table1)
 ```
+this summary explains that 50% of males who took the vaccine did not contract COVID19. 
 
 
 ```{r}
-tableLGBTQ <- xtabs(~infected + LGBTQ, data=FinalData)
-rowPerc(tableLGBTQ)
-colPerc(tableLGBTQ)
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+The p-value of 2.2e-16 is smaller than 0.05, so we reject the null hypothesis. This means the treatment has a significant effect. The odds ratio of 2.815604 means that males who took the treatment are 2.82 more likely to get covid than those who didn't.
+
+
+
+
+## FEMALES
+
+```{r}
+Females<-FinalDat[ FinalDat$sex=='F',]
 ```
 
 ```{r}
-chisq.test(tableLGBTQ)
-chisqtestGC(tableLGBTQ)
-fisher.test(tableLGBTQ)
+barchartGC(~infected + treatment,data=Females)
+barchartGC(~infected + treatment,data=Females, type="percent")
 ```
+
+
+Most of the females that took the vaccine did not contract COVID19. Hence, the vaccine was effective that specific group.  
+
+
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Females)
+rowPerc(table1)
+colPerc(table1)
+```
+
+this summary explains that 50% of females who took the vaccine did not contract covid19. 
+
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+The p-value of 1.914e-08 is smaller than 0.05, so we reject the null hypothesis. This means the treatment has a significant effect. The odds ratio of 1.86 means that females who took the treatment are 1.86 times more likely to get covid than those who didn't.
+
+
+
+
+
+## SEXUAL PREFERENCE - GAY
+
+```{r}
+LGBTQ<-FinalDat[ FinalDat$LGBTQ=='gay',]
+```
+
+```{r}
+barchartGC(~infected + treatment,data=LGBTQ)
+barchartGC(~infected + treatment,data=LGBTQ, type="percent")
+```
+
+
+Most of the gay population that took the vaccine did not contract COVID19. Hence, the vaccine was effective to that specific group.  
+
+
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=LGBTQ)
+rowPerc(table1)
+colPerc(table1)
+```
+
+this summary explains that 48% of gay people who took the vaccine did not contract covid19. 
+
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+The p-value of 2.266e-06 is smaller than 0.05, so we reject the null hypothesis. This means the treatment has a significant effect. The odds ratio of 4.28 means that gay people who took the treatment are 4.28 more likely to get covid than those who didn't.
+
+
+
+
+## SEXUAL PREFERENCE - STRAIGHT
+
+```{r}
+Straight<-FinalDat[ FinalDat$LGBTQ=='straight',]
+```
+
+```{r}
+barchartGC(~infected + treatment,data=Straight)
+barchartGC(~infected + treatment,data=Straight, type="percent")
+
+```
+
+Most of the straight people that took the vaccine did not contract COVID19. Hence, the vaccine was effective that specific group.  
+
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Straight)
+rowPerc(table1)
+colPerc(table1)
+```
+this summary explains that 50% of straight people who took the vaccine did not contract covid19. 
+
+
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+The p-value of 2.2e-16 is smaller than 0.05, so we reject the null hypothesis. This means the treatment has a significant effect. The odds ratio of 2.15 means that gay people who took the treatment are 2.15 more likely to get covid than those who didn't.
+
 
 
 ## Druggies
 
+```{r}
+Druggies<-FinalDat[ FinalDat$DrugUser=='yes',]
+```
+
+```{r}
+barchartGC(~infected + treatment,data=Druggies)
+barchartGC(~infected + treatment,data=Druggies, type="percent")
+```
+
+Most of the drug users that took the vaccine contracted COVID19. Hence, the vaccine was not effective that specific group.  
 
 
 
 ```{r}
-tableDrugUser <- xtabs(~infected + DrugUser, data=FinalData)
-rowPerc(tableDrugUser)
-colPerc(tableDrugUser)
+table1 <- xtabs(~infected + treatment, data=Druggies)
+rowPerc(table1)
+colPerc(table1)
 ```
+
+this summary explains that ~92% of drug users contracted covid19. 
 
 
 ```{r}
-chisq.test(tableDrugUser)
-chisqtestGC(tableDrugUser)
-fisher.test(tableDrugUser)
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
 ```
 
+The p-value of 1.414e-10 is smaller than 0.05, so we reject the null hypothesis. This means the treatment has a significant effect. The odds ratio of 0.09 means that druggies who took the treatment are 0.09 more likely to get covid than those who didn't.
 
+
+
+
+
+
+
+
+## Non Druggies
+
+```{r}
+Sober<-FinalDat[ FinalDat$DrugUser=='no',]
+```
+
+```{r}
+barchartGC(~infected + treatment,data=Sober)
+barchartGC(~infected + treatment,data=Sober, type="percent")
+```
+
+Most of the non-drug users that took the vaccine did not contract COVID19. Hence, the vaccine was effective that specific group.  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Sober)
+rowPerc(table1)
+colPerc(table1)
+```
+this summary explains that 50% of non-drug users who took the vaccine did not contract COVID19. 
 
 
 
 ```{r}
-barchartGC(~infected + DrugUser,data=FinalData)
-barchartGC(~infected + DrugUser,data=FinalData, type="percent")
-
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
 ```
+
+The p-value of 2.2e-16 is smaller than 0.05, so we reject the null hypothesis. This means the treatment has a significant effect. The odds ratio of 3.00 means that non-drug users who took the treatment are 3 times more likely to get covid than those who didn't.
+
 
 
 # Overall Results and Conclusions
+After looking at many tests for males, females, LGBTQ, straights, druggies, and sober people, I found that the vaccine is very effective for all groups except druggies. The p value for all groups were less than .05 which means that the null hypothesis was rejected for all groups. The drug users' boxplot showed me that most of the drug users who took the vaccine were more exposed to COVID-19 than any other group. In conclusion, this vaccine shows us that the vaccine is very effective for all groups except drug users, so don't do drugs.
